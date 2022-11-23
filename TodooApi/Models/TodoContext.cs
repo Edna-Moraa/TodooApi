@@ -13,7 +13,7 @@ namespace TodoApi.Models
         }
 
        
-
-        public DbSet<TodoItem> TodoItems { get; set; } = null!;
-    }
+    public DbSet<TodoTable>TodoTables { get; set; }
+        public DbSet<TodoItem> TodoItems { get; set; }
+}
 }

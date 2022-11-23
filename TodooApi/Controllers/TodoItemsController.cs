@@ -103,6 +103,13 @@ namespace TodoApi.Controllers
 
             return NoContent();
         }
+        [HttpGet("GetEdna")]
+        public async Task<IActionResult> GetEdna(){
+            var Edna = await _context.TodoTables
+            .FromSqlRaw("exec SelectTodo")
+            .ToListAsync();
+            return Ok(Edna);
+        }
 
         private bool TodoItemExists(long id)
         {

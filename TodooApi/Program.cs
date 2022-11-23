@@ -10,17 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-builder.Services.AddDbContext<TodoContext>(opt =>
-    opt.UseInMemoryDatabase("TodoList"));
 
 
-
+Console.WriteLine(builder.Configuration["SystemConnection"]);
 builder.Services.AddDbContext<TodoContext>(options =>
-        options.UseSqlServer(builder.Configuration.GetConnectionString("Data:SystemConnection: ConnectionStrings")));
-//builder.Services.AddSwaggerGen(c =>
-//{C:\Users\VOSTRO\source\repos\TodooApi\TodooApi\bin\Debug\net6.0\appsetings.json
-//    c.SwaggerDoc("v1", new() { Title = "TodoApi", Version = "v1" });
-//});
+        options.UseSqlServer("Server=MABURI;Database=TodoDb;Trusted_Connection=True;"));
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -28,8 +24,8 @@ var app = builder.Build();
 if (builder.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
-    //app.UseSwagger();
-    //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoApi v1"));
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TodoApi v1"));
 }
 
     
